@@ -1,0 +1,8 @@
+Vendor: D-Link
+Product: DIR-600L
+Version or Commit: 2.17b02 (hardware revision B)
+Vulnerability: OS Command Injection
+Submission recommendation: AFFECTED-PRODUCT / RELATED-ROOT-CAUSE report; seek CNA guidance before requesting new CVE.
+
+Description:
+Firmware analysis of D-Link DIR-600L Rev B firmware 2.17b02 identified unauthenticated command construction in the UPnP GENA subscription handler of htdocs/cgibin. The handler incorporates a caller-controlled service identifier into a shell-oriented timer command that is processed by the xmldb service without adequate validation. In a re-hosted QEMU-MIPSEL test, the research transcript recorded an HTTP 200 response and creation of a benign marker file, consistent with command execution in the emulated service environment. The original analysis reports execution in a root service context, though this was not independently verified on physical hardware. The affected network surface is the UPnP GENA listener; the original analysis infers LAN reachability from firmware service configuration. This resembles CVE-2019-17621 and similar disclosed D-Link GENA command-injection defects on other models. DIR-600L Rev B was not identified in the compared affected lists in the original research. Request an affected-model review and root-cause assessment before seeking a new CVE. CWE-78; preliminary CVSS v3.1 8.8 (AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H), subject to independent validation.

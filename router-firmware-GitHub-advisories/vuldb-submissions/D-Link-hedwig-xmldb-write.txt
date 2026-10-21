@@ -1,0 +1,8 @@
+Vendor: D-Link
+Product: DIR-600L
+Version or Commit: 2.17b02 (hardware revision B)
+Vulnerability: Missing Authentication / XML Injection
+Submission recommendation: SUPPLEMENTAL FINDING to affected-model disclosure; avoid independent CVE request pending root-cause review.
+
+Description:
+The research materials describe unauthenticated updates to the in-memory xmldb /runtime configuration tree through D-Link DIR-600L Rev B firmware 2.17b02 hedwig.cgi. The CGI handler accepts a caller-provided session identifier without validating an active session and merges the request body into an XML-backed configuration database. The researcher further observed that XML structure manipulation changed the destination from the intended session subtree to a sibling node under /runtime. A QEMU-MIPSEL test transcript shows a marker value stored under /runtime/evilC and read back successfully. Verified restrictions include rejection of some attribute-bound nodes and multi-root XML documents. The evidence does not demonstrate persistent firmware configuration changes, arbitrary filesystem modification, or successful secondary code execution. The source novelty review recognizes prior public work on missing authentication in related hedwig.cgi implementations and recommends treating this as a supplemental write-side behavior rather than an independently new root cause. CWE-306 and CWE-20/CWE-91 candidate. Original proposed CVSS v3.1 4.3 based on limited integrity impact; subject to further review.

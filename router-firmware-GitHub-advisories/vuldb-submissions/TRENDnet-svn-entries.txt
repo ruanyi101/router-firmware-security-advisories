@@ -1,0 +1,8 @@
+Vendor: TRENDnet
+Product: TEW-657BRM
+Version or Commit: 1.00.1
+Vulnerability: Information Disclosure
+Submission recommendation: Candidate, only after current duplicate and vendor-contact checks.
+
+Description:
+An unauthenticated information disclosure issue was documented in TRENDnet TEW-657BRM firmware 1.00.1 (hardware v1.0R). The firmware contains a Subversion working-copy metadata file under /usr/www/images/. The embedded mini_httpd server permits unauthenticated access to the affected static-content directory. The research records show that accessing /images/.svn/entries returned HTTP 200 and a 10,629-byte metadata response in a re-hosted QEMU-MIPS environment; a request to /.svn/entries returned HTTP 401. The leaked metadata reportedly contains an internal build repository address, a developer identifier, workspace paths and a web-content inventory, but no device passwords were shown. This is a development information exposure rather than proof of code execution or router takeover. Physical-router validation was not provided. CWE-200 and CWE-552 are applicable. Preliminary CVSS v3.1: 4.3 (AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N). The submitted research files record a vendor contact claim dated 2026-10-13, which requires independent confirmation.

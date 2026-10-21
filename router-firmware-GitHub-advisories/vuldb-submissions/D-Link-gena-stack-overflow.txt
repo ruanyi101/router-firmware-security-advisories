@@ -1,0 +1,8 @@
+Vendor: D-Link
+Product: DIR-600L
+Version or Commit: 2.17b02 (hardware revision B)
+Vulnerability: Stack-based Buffer Overflow (under investigation)
+Submission recommendation: HOLD. Compare CVE-2023-33626 and capture guest CPU register/fault evidence.
+
+Description:
+Static analysis of D-Link DIR-600L Rev B firmware 2.17b02 identified unchecked formatted writes into an approximately 516-byte stack buffer used by the GENA subscription handler in htdocs/cgibin. The values incorporated into the buffer include user-controlled service and callback fields. The original research records two QEMU-MIPSEL re-hosted runs with oversized service values associated with a CGI process SIGSEGV. Available host-side logs record the signal but do not independently establish an attacker-chosen program counter, overwrite of the saved return address, or a meaningful denial of the full HTTP service. The issue may overlap CVE-2023-33626, which covers a gena.cgi overflow on D-Link DIR-600 B5 firmware 2.18. The exact formatting call, buffer offset, and firmware lineage should be compared before proposing a distinct vulnerability entry. This item is currently an investigation report rather than a completed new-CVE submission. Potential CWE-121; CVSS deferred pending confirmation.

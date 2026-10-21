@@ -1,0 +1,8 @@
+Vendor: D-Link
+Product: DIR-600L
+Version or Commit: 2.17b02 (hardware revision B)
+Vulnerability: Path Traversal
+Submission recommendation: RELATED-VULNERABILITY affected-model evidence; do not assume separate CVE.
+
+Description:
+D-Link DIR-600L Rev B firmware 2.17b02 was found in the research records to allow unauthenticated path traversal through service-name processing by hedwig.cgi and htdocs/webinc/fatlady.php. The PHP handler constructs a module file path from a caller-controlled service value without sufficient traversal restriction. The upstream CGI pathway does not properly validate the claimed session. A re-hosted QEMU-MIPSEL test reportedly caused an existing configuration-export template to execute and return the /wifi configuration tree without valid credentials. The supplied capture contains wireless SSIDs, authentication/encryption modes, and WPS settings. It does not show a disclosed WPA key or unmasked administrator password. This is an existing-PHP-template inclusion / configuration exposure issue, not proof of unrestricted arbitrary file reading. The root-cause pattern is similar to CVE-2024-0769 on DIR-859 and earlier research on related devices. The principal contribution is confirmation of an apparently additional affected firmware/model. CWE-22, CWE-200 and CWE-306. Preliminary confidentiality impact needs review. No physical router test or independently verified vendor notification was supplied.
