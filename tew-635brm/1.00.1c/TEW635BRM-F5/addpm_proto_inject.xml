@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<s:Body>
+<u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
+<NewRemoteHost></NewRemoteHost>
+<NewExternalPort>8898</NewExternalPort>
+<NewProtocol>TCP;/bin/echo UPNP_PROTO_INJECT >/tmp/upnpproto;</NewProtocol>
+<NewInternalPort>8898</NewInternalPort>
+<NewInternalClient>192.168.10.100</NewInternalClient>
+<NewEnabled>1</NewEnabled>
+<NewPortMappingDescription>test</NewPortMappingDescription>
+<NewLeaseDuration>0</NewLeaseDuration>
+</u:AddPortMapping>
+</s:Body>
+</s:Envelope>
